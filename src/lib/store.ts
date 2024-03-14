@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import listReducer from "./feature/list/listSlice";
+import mainReducer from "./feature/list/listSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      list: listReducer,
+      main: mainReducer,
     },
   });
 };
