@@ -1,4 +1,5 @@
 import { Header, ThemeProvider } from "@/components";
+import StoreProvider from "./StoreProvider";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,8 +11,10 @@ export default function RootLayout({
     <html suppressHydrationWarning={true} lang="en">
       <body suppressHydrationWarning={true}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <Header />
-          {children}
+          <StoreProvider>
+            <Header />
+            {children}
+          </StoreProvider>
         </ThemeProvider>
       </body>
     </html>
