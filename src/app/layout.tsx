@@ -1,11 +1,11 @@
-import { Header, ThemeProvider } from "@/components";
-import StoreProvider from "./StoreProvider";
-import "./globals.css";
+import { Header, ThemeProvider } from '@/components'
+import StoreProvider from './StoreProvider'
+import './globals.css'
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html suppressHydrationWarning={true} lang="en">
@@ -18,5 +18,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { List } from "@/components/List";
+import { Layout, List } from '@/components'
 
 export default function Home() {
   return (
-    <main className="flex mx-16 flex-col">
+    <Layout>
       <List />
-    </main>
-  );
+    </Layout>
+  )
 }

@@ -3,13 +3,19 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "ceezer-public-assets.s3.eu-central-1.amazonaws.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'ceezer-public-assets.s3.eu-central-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sdgs.un.org',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

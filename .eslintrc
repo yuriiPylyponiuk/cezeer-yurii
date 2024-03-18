@@ -1,0 +1,36 @@
+{
+  "extends": ["next/core-web-vitals", "prettier", "eslint:recommended"],
+  "globals": {
+    "JSX": true,
+    "NodeJS": true,
+    "Tranlation": true,
+    "translate": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-console": ["off", { "allow": ["debug", "error", "info", "warn"] }],
+    "no-unused-vars": "off",
+    "no-extra-semi": "off",
+    "no-undef": "off",
+    "quotes": ["error", "single", { "allowTemplateLiterals": true, "avoidEscape": true }],
+    "quote-props": ["warn", "consistent-as-needed"],
+    "radix": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "no-unused-expressions": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/react-in-jsx-scope": "off",
+    "max-len": ["error", { "code": 120, "ignoreRegExpLiterals": true, "ignoreStrings": true }]
+  },
+  "overrides": [
+    {
+      "files": ["*.json", ".prettierrc", ".eslintrc"],
+      "rules": {
+        "quote-props": ["error", "always"],
+        "quotes": ["error", "double"]
+      }
+    }
+  ]
+}
