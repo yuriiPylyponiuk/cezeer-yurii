@@ -1,0 +1,6 @@
+README.md.pretierignore.gitignore
+globals.css
+
+public
+yarn.lock
+src / app / favicon.ico
