@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button } from '@/components/ui/button'
@@ -14,11 +14,8 @@ export const CartList = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const { cart } = useSelector((state: RootState) => state.main)
+  const cart = useSelector((state: RootState) => state.main.cart)
   const [show, setShow] = useState(false)
-  const [avaragePrice, setAvaragePrice] = useState(0)
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [totalCount, setTotalCount] = useState(0)
 
   const navigateTo = (id: number) => router.push(`item/${id}`)
 
@@ -31,12 +28,11 @@ export const CartList = () => {
     setShow((prev) => !prev)
   }
 
-  useEffect(() => {
-    const countOfOrders = cart.reduce((accumulator, { count }) => accumulator + count, 0)
-    const totPrice = cart.reduce((accumulator, { price_per_ton, count }) => accumulator + count * price_per_ton, 0)
-    setTotalPrice(totPrice)
-    setAvaragePrice(totPrice / countOfOrders)
-    setTotalCount(countOfOrders)
+  const { totalCount, totalPrice, averagePrice } = useMemo(() => {
+    const totalCount = cart.reduce((acc, item) => acc + item.count, 0)
+    const totalPrice = cart.reduce((acc, item) => acc + item.count * item.price_per_ton, 0)
+    const averagePrice = totalCount ? totalPrice / totalCount : 0
+    return { totalCount, totalPrice, averagePrice }
   }, [cart])
 
   const deleteCart = (id: number, count: number) => {
@@ -65,7 +61,7 @@ export const CartList = () => {
           <div className="flex justify-between align-bottom">
             <div>
               <p>Total Count: {totalCount}</p>
-              <p>Avarage Price: {Math.round(avaragePrice)}$</p>
+              <p>Avarage Price: {Math.round(averagePrice)}$</p>
               <p>Total Price: {totalPrice}$</p>
             </div>
             <Button onClick={toggleModal}>Confirm transaction</Button>

@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Input } from '@/components/ui/input'
@@ -14,8 +14,7 @@ export const List = () => {
   const router = useRouter()
 
   const { list } = useSelector((state: RootState) => state.main)
-  const [searchList, setSearchList] = useState(list)
-  const [searchQuery, setSeatchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const addToCart = (id: number, count: number) => {
     const [obj] = list.filter((item) => item.id === id)
@@ -25,10 +24,9 @@ export const List = () => {
 
   const navigateTo = (id: number) => router.push(`item/${id}`)
 
-  useEffect(() => {
-    const arr = list.filter((item) => item.name.toLowerCase().includes(searchQuery.toLocaleLowerCase()))
-    arr.length || searchQuery ? setSearchList(arr) : setSearchList(list)
-  }, [searchQuery])
+  const filteredList = useMemo(() => {
+    return list.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  }, [list, searchQuery])
 
   return (
     <>
@@ -36,10 +34,10 @@ export const List = () => {
         value={searchQuery}
         placeholder="Search"
         className="border-primary border-[2px]"
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setSeatchQuery(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
       />
 
-      {searchList.map((item) => (
+      {filteredList.map((item) => (
         <ListItem key={item.id} navigateTo={navigateTo} addToCart={addToCart} item={item} />
       ))}
     </>

@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ListItemProp, addItem } from '@/lib/feature/list/listSlice'
@@ -12,24 +12,17 @@ import { UnitInfoPropType } from './type'
 
 export const UnitInfo: FC<UnitInfoPropType> = ({ id }) => {
   const { list, sdgsGoals } = useSelector((state: RootState) => state.main)
-  const [item, setItem] = useState({} as ListItemProp)
+  const item = list.find((item) => item.id == id) || ({} as ListItemProp)
   const dispatch = useDispatch()
   const router = useRouter()
 
   const addToCart = (id: number, count: number) => {
-    const [obj] = list.filter((item) => item.id === id)
-
-    dispatch(addItem({ ...obj, count: count }))
+    dispatch(addItem({ ...item, count, id }))
   }
-
-  useEffect(() => {
-    const [obj] = list.filter((item) => item.id == id)
-    setItem(obj)
-  }, [])
 
   return (
     <>
-      {item.image ? (
+      {item && item.image ? (
         <div className="my-5 border-primary border-2 rounded-md p-10 flex flex-row">
           <Image src={item.image} className="mt-10 w-[192px] h-[144px]" width={100} height={100} alt={''} />
           <div className="ml-10">

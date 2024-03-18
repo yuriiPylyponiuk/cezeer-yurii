@@ -12,7 +12,7 @@ export const Controls: FC<ControlsPropsType> = ({
   type,
   changeStateCount = () => {},
 }) => {
-  const [count, setCount] = useState(cartCount ? cartCount : 1)
+  const [count, setCount] = useState(cartCount)
 
   useEffect(() => {
     if (type === 'cart') changeStateCount(id, count)
